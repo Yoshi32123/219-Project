@@ -270,70 +270,70 @@ public abstract class Vehicle : MonoBehaviour
     /// <summary>
     /// Makes sure there is no intersection between objects
     /// </summary>
-    public Vector3 Separation(GameObject original, List<GameObject> neighbors)
-    {
-        // Resultant force
-        Vector3 finalForce = Vector3.zero;
-
-        // 1 - Find "too close" neighbors
-        List<GameObject> closeNeighbors = new List<GameObject>();
-        List<GameObject> closerNeighbors = new List<GameObject>();
-
-        // Loop through neighbors
-        for (int i = 0; i < neighbors.Count; i++)
-        {
-            // Make sure the original isn't equal to the iteration of the neighbor
-            if (original != neighbors[i])
-            {
-                // If there is a collision
-                if (CircleCollision(neighbors[i], original, 2))
-                {
-                    // If there is a smaller collision
-                    if (CircleCollision(neighbors[i], original, 1))
-                    {
-                        // Add it to closer neighbors
-                        closerNeighbors.Add(neighbors[i]);
-                    }
-
-                    // If there isn't a smaller collision
-                    else
-                    {
-                        // Add it to close neighbors
-                        closeNeighbors.Add(neighbors[i]);
-                    }
-                }
-            }
-        }
-
-        // 2 - Calculate a steering vector away from each neighbor
-        // If there are objects in closeNeighbors
-        if (closeNeighbors.Count > 0)
-        {
-            // Loop though and call obstacle avoidance and add the resultant force to the final force
-            foreach (GameObject neighbor in closeNeighbors)
-            {
-                //Debug.DrawLine(transform.position, neighbor.transform.position, Color.green);
-                finalForce += original.GetComponent<Vehicle>().ObstacleAvoidance(neighbor);
-            }
-        }
-
-        // If there are objects in closerNeighbors
-        if (closerNeighbors.Count > 0)
-        {
-            // Loop though and call obstacle avoidance and add the resultant force to the final force
-            foreach (GameObject neighbor in closerNeighbors)
-            {
-                Debug.DrawLine(transform.position, neighbor.transform.position, Color.green);
-                finalForce += original.GetComponent<Vehicle>().ObstacleAvoidance(neighbor) * 2;
-            }
-        }
-
-        // 3 - Use weights that are inversely proportional to distance (1/dist)
-        // (Used in calc forces method)
-
-        // 4 - Sum all(done above), return final steering force
-        return finalForce;
-    }
+    //public Vector3 Separation(GameObject original, List<GameObject> neighbors)
+    //{
+    //    // Resultant force
+    //    Vector3 finalForce = Vector3.zero;
+    //
+    //    // 1 - Find "too close" neighbors
+    //    List<GameObject> closeNeighbors = new List<GameObject>();
+    //    List<GameObject> closerNeighbors = new List<GameObject>();
+    //
+    //    // Loop through neighbors
+    //    for (int i = 0; i < neighbors.Count; i++)
+    //    {
+    //        // Make sure the original isn't equal to the iteration of the neighbor
+    //        if (original != neighbors[i])
+    //        {
+    //            // If there is a collision
+    //            if (CircleCollision(neighbors[i], original, 2))
+    //            {
+    //                // If there is a smaller collision
+    //                if (CircleCollision(neighbors[i], original, 1))
+    //                {
+    //                    // Add it to closer neighbors
+    //                    closerNeighbors.Add(neighbors[i]);
+    //                }
+    //
+    //                // If there isn't a smaller collision
+    //                else
+    //                {
+    //                    // Add it to close neighbors
+    //                    closeNeighbors.Add(neighbors[i]);
+    //                }
+    //            }
+    //        }
+    //    }
+    //
+    //    // 2 - Calculate a steering vector away from each neighbor
+    //    // If there are objects in closeNeighbors
+    //    if (closeNeighbors.Count > 0)
+    //    {
+    //        // Loop though and call obstacle avoidance and add the resultant force to the final force
+    //        foreach (GameObject neighbor in closeNeighbors)
+    //        {
+    //            //Debug.DrawLine(transform.position, neighbor.transform.position, Color.green);
+    //            finalForce += original.GetComponent<Vehicle>().ObstacleAvoidance(neighbor);
+    //        }
+    //    }
+    //
+    //    // If there are objects in closerNeighbors
+    //    if (closerNeighbors.Count > 0)
+    //    {
+    //        // Loop though and call obstacle avoidance and add the resultant force to the final force
+    //        foreach (GameObject neighbor in closerNeighbors)
+    //        {
+    //            Debug.DrawLine(transform.position, neighbor.transform.position, Color.green);
+    //            finalForce += original.GetComponent<Vehicle>().ObstacleAvoidance(neighbor) * 2;
+    //        }
+    //    }
+    //
+    //    // 3 - Use weights that are inversely proportional to distance (1/dist)
+    //    // (Used in calc forces method)
+    //
+    //    // 4 - Sum all(done above), return final steering force
+    //    return finalForce;
+    //}
 
     /// <summary>
     /// Pursue method passes predicted position into Seek
